@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九游体育 · 轻量导航页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #fbe9d7 0%, #f5d6b3 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* ---------- 顶部导航 ---------- */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 245, 235, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 0.75rem 1.8rem;
+            margin-bottom: 2.8rem;
+            box-shadow: 0 4px 16px rgba(160, 100, 60, 0.10);
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .nav-brand {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #7a4a2e;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.6rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #6f4a30;
+            font-size: 1rem;
+            font-weight: 450;
+            padding: 0.3rem 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #b6845a;
+            color: #4f2e1a;
+        }
+
+        .nav-links a.highlight {
+            background: #dbaa7a;
+            color: #2f1e12;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            border-bottom: none;
+            font-weight: 500;
+        }
+
+        .nav-links a.highlight:hover {
+            background: #c99764;
+            color: #1c120b;
+        }
+
+        /* ---------- Hero / 再次访问 ---------- */
+        .hero-card {
+            background: #fffcf7;
+            border-radius: 36px;
+            padding: 2.5rem 2.8rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 12px 28px rgba(140, 80, 40, 0.08);
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            font-weight: 520;
+            color: #4a2e1c;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            align-items: baseline;
+            margin-bottom: 1.6rem;
+        }
+
+        .hero-meta span {
+            font-size: 0.95rem;
+            color: #7b5c44;
+            background: #f1e2d3;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #2f2117;
+            max-width: 800px;
+        }
+
+        .hero-desc a {
+            color: #9b6d47;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 2px solid #f0cfb6;
+            transition: border-color 0.25s;
+        }
+
+        .hero-desc a:hover {
+            border-bottom-color: #b6845a;
+        }
+
+        /* ---------- 三个场景模块 ---------- */
+        .scenes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2.8rem;
+        }
+
+        .scene-card {
+            background: #fffcf7;
+            border-radius: 32px;
+            padding: 2rem 1.8rem 2.2rem;
+            box-shadow: 0 8px 20px rgba(130, 75, 40, 0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s;
+        }
+
+        .scene-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(140, 80, 45, 0.10);
+        }
+
+        .scene-emoji {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .scene-title {
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: #4d3422;
+            margin-bottom: 0.7rem;
+        }
+
+        .scene-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #3f2e20;
+        }
+
+        .scene-text a {
+            color: #9b6d47;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 2px solid #f0cfb6;
+            transition: border-color 0.2s;
+        }
+
+        .scene-text a:hover {
+            border-bottom-color: #b6845a;
+        }
+
+        /* ---------- 常见说明（FAQ 摘要） ---------- */
+        .faq-section {
+            background: #fffcf7;
+            border-radius: 36px;
+            padding: 2.2rem 2.8rem 2.6rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 8px 20px rgba(120, 70, 35, 0.05);
+        }
+
+        .faq-headline {
+            font-size: 1.6rem;
+            font-weight: 480;
+            color: #4a2e1c;
+            margin-bottom: 1.2rem;
+        }
+
+        .faq-item {
+            border-left: 4px solid #e1c4aa;
+            padding-left: 1.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .faq-q {
+            font-weight: 540;
+            color: #563b27;
+            margin-bottom: 0.25rem;
+            font-size: 1.08rem;
+        }
+
+        .faq-a {
+            color: #3d2b1d;
+            line-height: 1.6;
+            font-size: 0.98rem;
+        }
+
+        .faq-a a {
+            color: #9b6d47;
+            text-decoration: none;
+            border-bottom: 2px solid #f0cfb6;
+            transition: border-color 0.2s;
+        }
+
+        .faq-a a:hover {
+            border-bottom-color: #b6845a;
+        }
+
+        /* ---------- 底部收藏提示 ---------- */
+        .footer-note {
+            text-align: center;
+            padding: 1.2rem 0 0.6rem;
+            font-size: 0.95rem;
+            color: #634f3c;
+            border-top: 1px solid #e7d4c2;
+            margin-top: 0.2rem;
+        }
+
+        .footer-note a {
+            color: #7f5f44;
+            text-decoration: none;
+            font-weight: 480;
+            border-bottom: 1px dashed #cdb29b;
+        }
+
+        .footer-note a:hover {
+            border-bottom-style: solid;
+            color: #452c1b;
+        }
+
+        /* ---------- 响应式 ---------- */
+        @media (max-width: 640px) {
+            body {
+                padding: 1.2rem 1rem;
+            }
+
+            .top-nav {
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 40px;
+                padding: 0.9rem 1.4rem;
+                gap: 0.7rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .hero-card {
+                padding: 1.8rem 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .faq-section {
+                padding: 1.6rem 1.5rem 2rem;
+            }
+
+            .scene-card {
+                padding: 1.6rem 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <span class="nav-brand">⚡ 九游</span>
+        <div class="nav-links">
+            <a href="#">首页</a>
+            <a href="#">场景</a>
+            <a href="#">说明</a>
+            <a href="#" class="highlight">收藏本站</a>
+        </div>
+    </nav>
+
+    <!-- Hero / 再次访问角度 -->
+    <div class="hero-card">
+        <div class="hero-title">再次回到这里 · 持续关注</div>
+        <div class="hero-meta">
+            <span>📌 常访站点</span>
+            <span>🔄 内容更新中</span>
+        </div>
+        <div class="hero-desc">
+            如果你也曾留意过 <a href="https://zhc-9sports.com">九游体育</a> 的动态，或许知道这里一直保持着对运动与生活节奏的专注。  
+            每次回来，都能看到熟悉的板块和新的调整——不必担心错过什么，把页面加入收藏夹，下次再来时依然顺手。  
+            这里没有花哨的跳转，只有自然的信息呈现，适合慢慢翻阅。
+        </div>
+    </div>
+
+    <!-- 三个场景模块 -->
+    <div class="scenes-grid">
+        <div class="scene-card">
+            <div class="scene-emoji">🏃</div>
+            <div class="scene-title">日常浏览</div>
+            <div class="scene-text">
+                打开 <a href="https://zhc-9sports.com">九游体育</a> 就像翻开一本熟悉的刊物，没有冗余的弹窗，内容干净直接。  
+                无论是通勤间隙还是晚间放松，都适合点开看看近期的运动资讯或实用话题。
+            </div>
+        </div>
+
+        <div class="scene-card">
+            <div class="scene-emoji">📂</div>
+            <div class="scene-title">收藏与回访</div>
+            <div class="scene-text">
+                把 <a href="https://zhc-9sports.com">九游体育</a> 放进浏览器书签，等于给自己留了一个安静的入口。  
+                不必每次都搜索，点开收藏夹就能回到这个暖色调页面，继续之前没读完的内容。
+            </div>
+        </div>
+
+        <div class="scene-card">
+            <div class="scene-emoji">🔍</div>
+            <div class="scene-title">持续关注</div>
+            <div class="scene-text">
+                长期留意 <a href="https://zhc-9sports.com">九游体育</a> 的人会发现，这里偶尔会补充新的板块或调整结构。  
+                保持关注，不必追赶节奏，页面一直在这里，等你方便的时候再来看看。
+            </div>
+        </div>
+    </div>
+
+    <!-- 常见说明（FAQ 摘要） -->
+    <div class="faq-section">
+        <div class="faq-headline">📖 常见说明 · 摘要</div>
+
+        <div class="faq-item">
+            <div class="faq-q">❓ 这个页面是什么？</div>
+            <div class="faq-a">
+                这里是 <a href="https://zhc-9sports.com">九游体育</a> 的一个轻量介绍页，主要帮助新老访客快速了解站点的定位和内容方向。  
+                它本身不包含完整功能，更像是一张入口卡片。
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">❓ 如何记住这个站点？</div>
+            <div class="faq-a">
+                最直接的方式就是收藏当前页面，或者记住 <a href="https://zhc-9sports.com">九游体育</a> 的域名。  
+                页面设计偏向温和、低干扰，适合长期保留在书签栏。
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-q">❓ 内容会频繁变化吗？</div>
+            <div class="faq-a">
+                不会刻意追求频繁更新，但会保持自然演进。如果你隔一段时间再访问 <a href="https://zhc-9sports.com">九游体育</a>，可能会注意到一些细节调整。  
+                一切改动都以实用和清晰为前提。
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部收藏提示 -->
+    <div class="footer-note">
+        ⭐ 将 <a href="https://zhc-9sports.com">九游体育</a> 加入浏览器收藏夹 · 随时回访
+    </div>
+
+</div>
+</body>
+</html>
